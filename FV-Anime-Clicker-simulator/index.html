@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>FV Anime Slashes</title>
+    <style>
+        h1 {
+            font-family:Arial, Helvetica, sans-serif;
+        }
+
+        img {
+            border: 2px solid rgba(0, 0, 0, 0);
+        }
+
+        #innpakning {
+            margin: auto;
+            max-width: 1000px;
+            min-width: 420px;
+            border: solid 2px black;
+        }
+
+        .counter {
+            margin: auto;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            padding: 2px;
+            text-align: center;
+            font-size: 20px;
+        }
+
+        .flexbox {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .item {
+            flex-grow: 1;
+            flex-basis: 15%
+        }
+
+        .wrap {
+            text-align: center;
+        }
+
+        .red {
+            background-color: red;
+        }
+
+        .cost {
+            margin: 0;
+        }
+
+        .swordCost {
+            margin: 0;
+        }
+
+        .rightSolid {
+            border-right: 2px solid black;
+            border-top: 2px solid black;
+        }
+
+        .swordBackground {
+            background-color: lightgray;
+            border-right: 2px solid black;
+            border-top: 2px solid black;
+        }
+
+        .aquaBackground {
+            background-color: aqua;
+            border-right: 2px solid black;
+            border-top: 2px solid black;
+        }
+
+        .meguminBackground {
+            background-color: crimson;
+            border-right: 2px solid black;
+            border-top: 2px solid black;
+        }
+
+        .darknessBackground {
+            background-color: honeydew;
+            border-right: 2px solid black;
+            border-top: 2px solid black;
+        }
+
+        .wizBackground {
+            background-color: lavender;
+            border-top: 2px solid black;
+        }
+
+        .slash {
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .bought {
+            border: 2px solid gold;
+        }
+
+        .break {
+            flex-basis: 100%;
+            border-top: 2px solid black;
+            background-color: darkcyan;
+        }
+
+        .seasonButton {
+            margin: 50px;
+            font-size: 30px;
+        }
+
+        .counterDiv {
+            margin: auto;
+            position: fixed;
+            width: 100%;
+            transition: all 1s;
+        }
+
+        .fixingDiv {
+            max-width: 420px;
+            background-color: white;
+            border: 2px solid black;
+        }
+
+        .hide {
+            opacity: 0;
+            left: -100%;
+        }
+
+        .show {
+            opacity: 1;
+            left: 0;
+        }
+
+    </style>
+</head>
+
+<body background="logo.png">
+    <div id="innpakning">
+        <div class="counterDiv hide">
+            <div class="fixingDiv">
+                <p class="counter">0</p>
+                <div class="wrap"><button class="slash">Slash</button></div>
+            </div>
+        </div>
+        <div>
+            <p class="counter">0</p>
+            <div class="wrap"><button class="slash">Slash</button></div>
+            <button class="save">Save</button><button class="load">Load</button>
+        </div>
+
+        <div class="flexbox">
+            <div class="item swordBackground">
+                <div class="wrap">
+                    <p>Sword</p>
+                    <img src="sword.png">
+                    <p class="swordCost">Cost: 20</p><button class="swordButton">Upgrade</button>
+                    <p class="power">Power: 1</p>
+                </div>
+            </div>
+            <div class="item aquaBackground">
+                <div class="wrap">
+                    <p>Aqua</p>
+                    <img src="aqua.png" class="heroPic">
+                    <p class="cost">Cost: 10</p><button class="heroButton aqua">Buy Aqua</button>
+                    <p class="lvl aqua">Lvl:</p>
+                </div>
+            </div>
+            <div class="item meguminBackground">
+                <div class="wrap">
+                    <p>Megumin</p><img src="megumin.png" class="heroPic">
+                    <p class="cost">Cost: 50</p><button class="heroButton megumin">Buy Megumin</button>
+                    <p class="lvl megumin">Lvl:</p>
+                </div>
+                <p>
+                    
+                </p>
+            </div>
+            <div class="item darknessBackground">
+                <div class="wrap">
+                    <p>Darkness</p><img src="darkness.png" class="heroPic">
+                    <p class="cost">Cost: 100</p><button class="heroButton darkness">Buy Darkness</button>
+                    <p class="lvl darkness">Lvl:</p>
+                </div>
+            </div>
+            <div class="item wizBackground">
+                <div class="wrap">
+                    <p>Wiz</p><img src="wiz.png" class="heroPic">
+                    <p class="cost">Cost: 200</p><button class="heroButton wiz">Buy Wiz</button>
+                    <p class="lvl wiz">Lvl:</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script>
+        var getCounter = document.querySelectorAll(".counter");
+        var getSlash = document.querySelectorAll(".slash");
+        var getSwordUpgrade = document.querySelector(".swordButton");
+        var getSwordInfo = document.querySelector(".power");
+        var getSwordCost = document.querySelector(".swordCost");
+        var getFlexboxDiv = document.querySelector(".flexbox");
+
+        var getALLHeroButton = document.querySelectorAll(".heroButton");
+        var getAllLvlInfo = document.querySelectorAll(".lvl");
+        var getAllCost = document.querySelectorAll(".cost");
+        var getAllPics = document.querySelectorAll(".heroPic");
+
+
+        // scroll function from stack overflow
+        var myID = document.querySelector(".counterDiv");
+
+        var myScrollFunc = function() {
+
+            var y = window.scrollY;
+            if (y >= 100) {
+                myID.className = "counterDiv show";
+            } else {
+                myID.className = "counterDiv hide";
+            }
+        };
+
+        window.addEventListener("scroll", myScrollFunc);
+        //
+
+        getSlash[0].addEventListener("click", slash);
+        getSlash[1].addEventListener("click", slash);
+        getSwordUpgrade.addEventListener("click", upgradeSlash);
+
+
+
+
+
+        for (var x of getALLHeroButton) {
+            x.addEventListener("click", buy);
+        }
+
+        var loopTime = 0; // how many times it has been looped, max 10 then resets
+        var poeng = 0;
+        var removeSeason = 0; // specefies what season button to remove, also used to know the what seasons the player bought
+        var createdDivs = [];
+        var createdButtons = [];
+
+        class Hero {
+            constructor(name, cost, lvl, power, visualCost) {
+                this.name = name;
+                this.cost = cost;
+                this.lvl = lvl;
+                this.power = power;
+                this.visualCost = visualCost;
+            }
+        }
+
+        // defining heroes/waifus
+        var swordClassic = new Hero("sword", 20, 0, 1);
+        var heroClassic = [new Hero("aqua", 10, 0, 1), new Hero("megumin", 50, 0, 1), new Hero("darkness", 100, 0, 1), new Hero("wiz", 200, 0, 1)]; // first heroes ever made just as a testing ground can be more automated
+
+        // add new heroes/waifus and new seasons here :3 // the first-dimensional index represents the anime and the second-dimensional is the characters linked into it (in heroesSeasonName)
+        var seasonName = ["STEMers", "Konosuba Season 2", "Re: Zero", "Monster Musume", "Little Witch Academia", "To Love Ru", "???"]; // add "???" at the end to end the game with credits!
+        var heroesSeasonName = [
+            ["Loay", "Amro", "Abdo_Azzam", "Aly_Elgendy", "Dsmans!", "Hoshino_Kiyotaka!"],
+            ["yunyun", "luna", "eris", "komekko"],
+            ["emilia", "ram", "rem", "beatrice", "pack", "felix"],
+            ["miia", "rachnera", "suu", "papi", "centorea", "meroune", "lala", "zombina", "tionishia", "manako"],
+            ["akko", "sucy", "diana", "lotte", "amanda"],
+            ["lala_Deviluke", "haruna", "yami", "yui", "mikan", "run"]
+        ];
+        var heroesSeasonAr = [];
+
+        var costNewHero = 200;
+        var powerNewHero = 1;
+        var newSeasonCost = 5000;
+        var newSeasonCostVisual = 5000;
+
+        for (var i = 0; i < heroesSeasonName.length; i++) {
+            heroesSeasonAr.push([]);
+            for (var k = 0; k < heroesSeasonName[i].length; k++) {
+                costNewHero = Math.floor(costNewHero * 2.5);
+                if (costNewHero > 5000) {
+                    powerNewHero = Math.floor(costNewHero * 0.002);
+                } else {
+                    powerNewHero++;
+                }
+                var costNewHeroVisual;
+                heroesSeasonAr[i].push(new Hero(heroesSeasonName[i][k], costNewHero, 0, powerNewHero, simpleNumber(costNewHero, costNewHeroVisual)));
+            }
+        }
+        console.log(heroesSeasonAr);
+
+        createdDivs.push(document.createElement("div"));
+        createdDivs[0].classList.add("break");
+        createdDivs[0].classList.add("wrap");
+        createdButtons.push(document.createElement("button"));
+        createdButtons[0].innerHTML = "Unlock STEMers<br>Cost: " + newSeasonCost;
+        createdButtons[0].classList.add("seasonButton");
+        getFlexboxDiv.appendChild(createdDivs[0]);
+        createdDivs[0].appendChild(createdButtons[0]);
+
+        createdButtons[0].addEventListener("click", addHeroes);
+
+        function addHeroes() {
+            if (poeng >= newSeasonCost) {
+                poeng -= newSeasonCost;
+                var poengVisual;
+                getCounter[1].innerHTML = simpleNumber(poeng, poengVisual);
+                getCounter[0].innerHTML = simpleNumber(poeng, poengVisual);
+
+                createdDivs[removeSeason].innerHTML = "<h1>" + seasonName[removeSeason] + "</h1>";
+
+                if (createdDivs[removeSeason].innerHTML === "<h1>???</h1>") {
+                    createdDivs[removeSeason].innerHTML = "<h1>Thank you for playing this game! It took a lot of time and effort to make this, hope you had fun :3<br><br>You can keep playing if you want! Theoretically this goes to infinity <br><br> I made the code so that it is easy to add more verses and charcters.";
+                }
+
+                for (var i = 0; i < heroesSeasonAr[removeSeason].length; i++) {
+                    heroClassic.push(heroesSeasonAr[removeSeason][i]);
+                    //console.log("hero added!");
+                    var createDiv = document.createElement("div");
+                    createDiv.classList.add("item");
+                    createDiv.classList.add("rightSolid");
+                    createDiv.style.backgroundColor = "hsl(" + Math.floor(Math.random() * 359 + 1) + ", 60%, 70%)"; //"#" + Math.floor(Math.random() * 999999 + 100000);
+                    getFlexboxDiv.appendChild(createDiv);
+                    var createWrapDiv = document.createElement("div");
+                    createWrapDiv.classList.add("wrap");
+                    createWrapDiv.innerHTML = `<p>` +
+                        heroesSeasonAr[removeSeason][i].name.toUpperCase()[0] + heroesSeasonAr[removeSeason][i].name.slice(1) + `</p><img src="` +
+                        heroesSeasonAr[removeSeason][i].name + `.png" class="heroPic">
+                    <p class="cost">Cost: ` +
+                        heroesSeasonAr[removeSeason][i].visualCost + `</p><button class="heroButton ` +
+                        heroesSeasonAr[removeSeason][i].name + `">Buy ` +
+                        heroesSeasonAr[removeSeason][i].name.toUpperCase()[0] + heroesSeasonAr[removeSeason][i].name.slice(1) + `</button>
+                    <p class="lvl ` +
+                        heroesSeasonAr[removeSeason][i].name + `">Lvl:</p>`;
+                    createDiv.appendChild(createWrapDiv);
+                }
+
+                removeSeason++;
+
+                // adds a new season
+
+                newSeasonCost = Math.floor(newSeasonCost * 2.5 * (removeSeason * removeSeason * removeSeason * removeSeason * removeSeason * removeSeason * removeSeason));
+
+
+                console.log("Next season cost: " + newSeasonCost);
+
+                createdDivs.push(document.createElement("div"));
+                createdDivs[removeSeason].classList.add("break");
+                createdDivs[removeSeason].classList.add("wrap");
+                createdButtons.push(document.createElement("button"));
+                createdButtons[removeSeason].innerHTML = "Unlock " + seasonName[removeSeason] + "<br>Cost: " + simpleNumber(newSeasonCost, newSeasonCostVisual);
+                createdButtons[removeSeason].classList.add("seasonButton");
+                getFlexboxDiv.appendChild(createdDivs[removeSeason]);
+                createdDivs[removeSeason].appendChild(createdButtons[removeSeason]);
+
+                createdButtons[removeSeason].addEventListener("click", addHeroes);
+
+                //
+
+                getALLHeroButton = document.querySelectorAll(".heroButton");
+                getAllLvlInfo = document.querySelectorAll(".lvl");
+                getAllCost = document.querySelectorAll(".cost");
+                getAllPics = document.querySelectorAll(".heroPic");
+
+                for (var x of getALLHeroButton) {
+                    x.addEventListener("click", buy);
+                }
+            } else {
+                this.classList.add("red");
+                var e = this;
+                setTimeout(function reddy() {
+                    e.classList.remove("red");
+                }, 100)
+                //alert("You don't have enough money, ask Aqua to stop drinking booze and help you!");
+                console.log("Can't buy! The season costs: " + newSeasonCost);
+            }
+        }
+
+        function slash() {
+            poeng += swordClassic.power;
+            var poengVisual;
+            getCounter[1].innerHTML = simpleNumber(poeng, poengVisual);
+            getCounter[0].innerHTML = simpleNumber(poeng, poengVisual);
+        }
+
+        function upgradeSlash() {
+            if (poeng >= swordClassic.cost) {
+                if (swordClassic.power < 8) {
+                    swordClassic.power++;
+                } else {
+                    swordClassic.power = Math.floor(swordClassic.cost * 0.02); // more scalable and fair
+                    //swordClassic.power = Math.floor(swordClassic.power * 1.7); // was 1.2 in beta
+                }
+                poeng -= swordClassic.cost;
+                swordClassic.cost = Math.floor(swordClassic.cost * 1.7); // was 2.7 in beta
+                getSwordCost.innerHTML = "Cost: " + simpleNumber(swordClassic.cost, swordClassic.visualCost);
+                var poengVisual;
+                getCounter[1].innerHTML = simpleNumber(poeng, poengVisual);
+                getCounter[0].innerHTML = simpleNumber(poeng, poengVisual);
+            } else {
+                this.classList.add("red");
+                var e = this;
+                setTimeout(function reddy() {
+                    e.classList.remove("red");
+                }, 100)
+                //alert("You don't have enough money, ask Aqua to stop drinking booze and help you!");
+            }
+
+            getSwordInfo.innerHTML = "Power: " + simpleNumber(swordClassic.power, swordClassic.visualCost);
+        }
+
+        function buy() {
+            for (var i = 0; i < getAllLvlInfo.length; i++) {
+                if (getAllLvlInfo[i].classList[1] === this.classList[1] && poeng >= heroClassic[i].cost) {
+                    heroClassic[i].lvl += 1;
+                    getAllLvlInfo[i].innerHTML = "Lvl: " + heroClassic[i].lvl;
+                    poeng -= heroClassic[i].cost;
+                    heroClassic[i].cost = Math.floor(heroClassic[i].cost * 1.2);
+                    getAllCost[i].innerHTML = "Cost: " + simpleNumber(heroClassic[i].cost, heroClassic[i].visualCost);
+                    var poengVisual;
+                    getCounter[1].innerHTML = simpleNumber(poeng, poengVisual);
+                    getCounter[0].innerHTML = simpleNumber(poeng, poengVisual);
+
+                    if (getAllPics[i].classList[1] != "bought") {
+                        getAllPics[i].classList.add("bought");
+                    }
+
+                    this.innerHTML = "Lvl up";
+
+                } else if (getAllLvlInfo[i].classList[1] === this.classList[1] && poeng < heroClassic[i].cost) {
+                    this.classList.add("red");
+                    var e = this;
+                    setTimeout(function reddy() {
+                        e.classList.remove("red");
+                    }, 100)
+                    //alert("You don't have enough money, ask Aqua to stop drinking booze and help you!");
+                    console.log("Can't buy! The hero costs: " + heroClassic[i].cost)
+                }
+            }
+
+        }
+
+        function toFixed(x) {
+            if (Math.abs(x) < 1.0) {
+                var e = parseInt(x.toString().split('e-')[1]);
+                if (e) {
+                    x *= Math.pow(10, e - 1);
+                    x = '0.' + (new Array(e)).join('0') + x.toString().substring(2);
+                }
+            } else {
+                var e = parseInt(x.toString().split('+')[1]);
+                if (e > 20) {
+                    e -= 20;
+                    x /= Math.pow(10, e);
+                    x += (new Array(e + 1)).join('0');
+                }
+            }
+            return x;
+        }
+
+        function simpleNumber(costOfIt, visualOfIt) {
+            if (costOfIt > 1e21) {
+                var visualOfIt = toFixed(costOfIt);
+            } else {
+                var visualOfIt = costOfIt.toString();
+            }
+
+
+            var visualLeng = 6;
+            var maxLeng = 4;
+            var letterArrayIndex = 0;
+
+            // all illions put in by MY PP HARD @thatNorwegianMapper
+            var letterArray = ["K", "M", "B", "T", " Quadrillion", " Quintillion", " Sextillion", " Septillion", " Octillion", " Nonillion", " Decillion", " Undecillion", " Duodecillion", " Tredecillion", " Quatuordecillion", " Quindecillion", " Sexdecillion", " Septendecillion", " Octodecillion", " Novemdecillion", " Vigintillion", " Unvigintillion", " Duovigintillion", " Tresvigintillion", " Quatuorvigintillion", " Quinquavigintillion", " Sesvigintillion", " Septemvigintillion", " Octovigintillion", " Novemvigintillion", " Trigintillion", " Untrigintillion", " Duotrigintillion", " Trestrigintillion", " Quatuortrigintillion", " Quinquatrigintillion", " Sestrigintillion", " Septentrigintillion", " Octotrigintillion", " Novemtrigintillion", " Quadragintillion", " Unquadragintillion", " Duoquadragintillion", " Tresquadragintillion", " Quatuorquadragintillion", " Quinquaquadragintillion", " Sesquadragintillion", " Septemquadragintillion", " Octoquadragintillion", " Novemquadragintillion", " Quinquagintillion", " Unquinquagintillion", " Duoquinquagintillion", " Tresquinquagintillion", " Quatuorquinquagintillion", " Quinquaquinquagintillion", " Sesquinquagintillion", " Septenquinquagintillion", " Octoquinquagintillion", " Novemquinquagintillion", " Sexagintillion", " Unsexagintillion", " Duosexagintillion", " Tressexagintillion", " Quatuorsexagintillion", " Quinquasexagintillion", " Sexasexagintillion", " Septemsexagintillion", " Octosexagintillion", " Novemsexagintillion", " Septuagintillion", " Unseptuagintillion", " Duoseptuagintillion", " Tresseptuagintillion", " Quatuorseptuagintillion", " Quinquaseptuagintillion", " Sexaseptuagintillion", " Septenseptuagintillion", " Octoseptuagintillion", " Novemseptuagintillion", " Octogintillion", " Unoctogintillion", " Duooctogintillion", " Tresoctogintillion", " Quatuoroctogintillion", " Quinquaoctogintillion", " Sesoctogintillion", " Septemoctogintillion", " Octooctogintillion", " Novemoctogintillion", " Nonagintillion", " Unnonagintillion", " Duononagintillion", " Tresnonagintillion", " Quatuornonagintillion", " Quinquanonagintillion", " Sesnonagintillion", " Septemnonagintillion", " Octononagintillion", " Novemnonagintillion", " Centillion", " Uncentillion"];
+
+
+            var leng = 4;
+            var slic = 1;
+
+            for (var g = 0; g < visualOfIt.length; g++) {
+                if (visualOfIt.length <= visualLeng) {
+                    if (leng < maxLeng) {
+                        leng = maxLeng;
+                    }
+
+                    if (visualOfIt.length === leng) {
+                        if (slic > 2) {
+                            if (costOfIt > 1e21) {
+                                visualOfIt = toFixed(costOfIt).slice(0, slic) + letterArray[letterArrayIndex];
+                            } else {
+                                visualOfIt = costOfIt.toString().slice(0, slic) + letterArray[letterArrayIndex];
+                            }
+                            break;
+                        } else {
+                            if (costOfIt > 1e21) {
+                                visualOfIt = toFixed(costOfIt).slice(0, slic) + "," + toFixed(costOfIt).slice(slic, 3) + letterArray[letterArrayIndex];
+                            } else {
+                                visualOfIt = costOfIt.toString().slice(0, slic) + "," + costOfIt.toString().slice(slic, 3) + letterArray[letterArrayIndex];
+                            }
+                            break;
+                        }
+                    } else {
+                        leng++;
+                        slic++;
+                    }
+                } else {
+                    maxLeng += 3;
+                    visualLeng += 3;
+                    letterArrayIndex++;
+                }
+            }
+
+            return visualOfIt;
+        }
+
+        function loop() {
+            loopTime++;
+
+            if (heroClassic[0].lvl > 0 && loopTime === 10) {
+                poeng += heroClassic[0].lvl * heroClassic[0].power;
+                var poengVisual;
+                getCounter[1].innerHTML = simpleNumber(poeng, poengVisual);
+                getCounter[0].innerHTML = simpleNumber(poeng, poengVisual);
+            }
+            if (heroClassic[1].lvl > 0 && loopTime === 3 || heroClassic[1].lvl > 0 && loopTime === 6) {
+                poeng += heroClassic[1].lvl * heroClassic[1].power;
+                var poengVisual;
+                getCounter[1].innerHTML = simpleNumber(poeng, poengVisual);
+                getCounter[0].innerHTML = simpleNumber(poeng, poengVisual);
+            }
+            if (heroClassic[2].lvl > 0 && loopTime === 4 || heroClassic[1].lvl > 0 && loopTime === 5 || heroClassic[1].lvl > 0 && loopTime === 7) {
+                poeng += heroClassic[2].lvl * heroClassic[2].power;
+                var poengVisual;
+                getCounter[1].innerHTML = simpleNumber(poeng, poengVisual);
+                getCounter[0].innerHTML = simpleNumber(poeng, poengVisual);
+            }
+            if (heroClassic[3].lvl > 0) {
+                poeng += heroClassic[3].lvl * heroClassic[3].power;
+                var poengVisual;
+                getCounter[1].innerHTML = simpleNumber(poeng, poengVisual);
+                getCounter[0].innerHTML = simpleNumber(poeng, poengVisual);
+            }
+            for (var i = 4; i < heroClassic.length; i++) {
+                if (heroClassic[i].lvl > 0) {
+                    poeng += heroClassic[i].lvl * heroClassic[i].power;
+                    var poengVisual;
+                    getCounter[1].innerHTML = simpleNumber(poeng, poengVisual);
+                    getCounter[0].innerHTML = simpleNumber(poeng, poengVisual);
+                }
+            }
+
+            if (loopTime > 10) {
+                loopTime = 0;
+            }
+            setTimeout(loop, 100);
+        }
+        loop();
+
+    </script>
+    <script>
+        var getSave = document.querySelector(".save");
+        var getLoad = document.querySelector(".load");
+
+        getSave.addEventListener("click", save);
+        getLoad.addEventListener("click", load);
+
+        var loaded = false; // makes it so that the player needs to refresh the browser before loading
+
+        function save() {
+            localStorage.setItem("heroArray", JSON.stringify(heroClassic));
+            localStorage.setItem("swordClassic", JSON.stringify(swordClassic));
+            localStorage.setItem("poeng", poeng);
+            localStorage.setItem("removeSeason", removeSeason);
+
+            alert("Game saved! You may exit the browser, your progress will be back when you press 'Load' button!");
+        }
+
+        function load() {
+            if (loaded) {
+                alert("please refresh browser before loading twice!");
+            } else if (removeSeason > 0) {
+                alert("please refresh browser before loading!");
+            } else {
+                loaded = true;
+
+                heroClassic = JSON.parse(localStorage.getItem("heroArray"));
+                swordClassic = JSON.parse(localStorage.getItem("swordClassic"));
+                poeng = Number(localStorage.getItem("poeng", poeng));
+                removeSeasonStorage = Number(localStorage.getItem("removeSeason", removeSeason));
+
+                p = removeSeasonStorage;
+
+                for (var h = 0; h < p; h++) {
+                    if (removeSeasonStorage > 0) {
+                        removeSeasonStorage = 0;
+                    }
+
+                    createdDivs[removeSeason].innerHTML = "<h1>" + seasonName[removeSeason] + "</h1>";
+
+                    if (createdDivs[removeSeason].innerHTML === "<h1>???</h1>") {
+                        createdDivs[removeSeason].innerHTML = "<h1>Thank you for playing this game! It took a lot of time and effort to make this, hope you had fun :3<br><br>You can keep playing if you want! Theoretically this goes to infinity <br><br> I made the code so that it is easy to add more verses and charcters.";
+                    }
+
+                    for (var i = 0; i < heroesSeasonAr[removeSeason].length; i++) {
+                        //console.log("hero added!");
+                        var createDiv = document.createElement("div");
+                        createDiv.classList.add("item");
+                        createDiv.classList.add("rightSolid");
+                        createDiv.style.backgroundColor = "hsl(" + Math.floor(Math.random() * 359 + 1) + ", 60%, 70%)"; //"#" + Math.floor(Math.random() * 999999 + 100000);
+                        getFlexboxDiv.appendChild(createDiv);
+                        var createWrapDiv = document.createElement("div");
+                        createWrapDiv.classList.add("wrap");
+                        createWrapDiv.innerHTML = `<p>` +
+                            heroesSeasonAr[removeSeason][i].name.toUpperCase()[0] + heroesSeasonAr[removeSeason][i].name.slice(1) + `</p><img src="` +
+                            heroesSeasonAr[removeSeason][i].name + `.png" class="heroPic">
+                    <p class="cost">Cost: ` +
+                            heroesSeasonAr[removeSeason][i].visualCost + `</p><button class="heroButton ` +
+                            heroesSeasonAr[removeSeason][i].name + `">Buy ` +
+                            heroesSeasonAr[removeSeason][i].name.toUpperCase()[0] + heroesSeasonAr[removeSeason][i].name.slice(1) + `</button>
+                    <p class="lvl ` +
+                            heroesSeasonAr[removeSeason][i].name + `">Lvl:</p>`;
+                        createDiv.appendChild(createWrapDiv);
+                    }
+
+                    removeSeason++;
+
+                    // adds a new season
+
+                    newSeasonCost = Math.floor(newSeasonCost * 2.5 * (removeSeason * removeSeason * removeSeason * removeSeason * removeSeason * removeSeason * removeSeason));
+
+                    createdDivs.push(document.createElement("div"));
+                    createdDivs[removeSeason].classList.add("break");
+                    createdDivs[removeSeason].classList.add("wrap");
+                    createdButtons.push(document.createElement("button"));
+                    createdButtons[removeSeason].innerHTML = "Unlock " + seasonName[removeSeason] + "<br>Cost: " + simpleNumber(newSeasonCost, newSeasonCostVisual);
+                    createdButtons[removeSeason].classList.add("seasonButton");
+                    getFlexboxDiv.appendChild(createdDivs[removeSeason]);
+                    createdDivs[removeSeason].appendChild(createdButtons[removeSeason]);
+
+                    createdButtons[removeSeason].addEventListener("click", addHeroes);
+
+                    //
+
+                    getALLHeroButton = document.querySelectorAll(".heroButton");
+                    getAllLvlInfo = document.querySelectorAll(".lvl");
+                    getAllCost = document.querySelectorAll(".cost");
+                    getAllPics = document.querySelectorAll(".heroPic");
+
+                    for (var x of getALLHeroButton) {
+                        x.addEventListener("click", buy);
+                    }
+                }
+
+                // visualize
+                getSwordCost.innerHTML = "Cost: " + simpleNumber(swordClassic.cost, swordClassic.visualCost);
+                getSwordInfo.innerHTML = "Power: " + simpleNumber(swordClassic.power, swordClassic.visualCost);
+
+                var poengVisual;
+                getCounter[1].innerHTML = simpleNumber(poeng, poengVisual);
+                getCounter[0].innerHTML = simpleNumber(poeng, poengVisual);
+
+                for (var i = 0; i < getAllLvlInfo.length; i++) {
+                    if (heroClassic[i].lvl > 0) {
+                        getAllLvlInfo[i].innerHTML = "Lvl: " + heroClassic[i].lvl;
+                        getALLHeroButton[i].innerHTML = "Lvl up";
+                    }
+                    getAllCost[i].innerHTML = "Cost: " + simpleNumber(heroClassic[i].cost, heroClassic[i].visualCost);
+
+                    if (getAllPics[i].classList[1] != "bought" && heroClassic[i].lvl > 0) {
+                        getAllPics[i].classList.add("bought");
+                    }
+
+                }
+
+                console.log("Next season cost: " + newSeasonCost);
+                //console.log(heroClassic)
+                alert("Game loaded!");
+            }
+        }
+
+    </script>
+    <script>
+        getSlash[0].addEventListener("keydown", function(e) {
+            if (e.repeat) { //don't do anything if a key is held down.
+                e.stopPropagation();
+                e.preventDefault();
+            }
+        });
+        getSlash[1].addEventListener("keydown", function(e) {
+            console.log("loli")
+            if (e.repeat) { //don't do anything if a key is held down.
+                e.stopPropagation();
+                e.preventDefault();
+            }
+        });
+
+    </script>
+</body>
+
+</html>

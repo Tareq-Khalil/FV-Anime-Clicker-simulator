@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FV Anime Clicker Simulator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(to bottom, #ff9a9e, #fad0c4);
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        .logo {
+            width: 150px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin: 15px 0;
+            color: #f9f9f9;
+        }
+
+        .btn-container {
+            margin-top: 20px;
+        }
+
+        .btn {
+            background: #ff6f61;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: #e85a50;
+        }
+
+        .btn-secondary {
+            background: #4db6ac;
+            margin-left: 10px;
+        }
+
+        .btn-secondary:hover {
+            background: #399589;
+        }
+
+        .anime-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://via.placeholder.com/1500x900'); /* Replace with game art */
+            background-size: cover;
+            background-position: center;
+            opacity: 0.2;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <div class="anime-background"></div>
+    <div class="container">
+        <img src="logo.png" alt="Game Logo" class="logo">
+        <h1>FV Anime Clicker Simulator</h1>
+        <p>Youkosu, Watashi no Anime Clicker Society!</p>
+        <div class="btn-container">
+            <a href="index.html"><button class="btn" >Play Now</button></a>
+            <button class="btn btn-secondary">Learn More</button>
+        </div>
+    </div>
+</body>
+</html>
